@@ -3,6 +3,7 @@ package com.code.issuestracker.controller;
 
 import com.code.issuestracker.entity.Issue;
 import com.code.issuestracker.service.IssueService;
+import com.code.issuestracker.util.IssueNotFoundException;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -29,23 +30,23 @@ public class IssueController {
     }
 
     @GetMapping("test")
-    public String test(){
+     String test(){
         return "api work properly";
     }
 
     @GetMapping("/issues")
-    public ResponseEntity<?> findAllUsers(){
+     ResponseEntity<?> findAllUsers(){
         return ResponseEntity.ok(issueService.getAllIssue());
     }
 
     @GetMapping(path = "/issue/{id}")
-    public Issue findCategoryById(@PathVariable Long id)
+     Issue getIssue(@PathVariable Long id)
     {
-        return issueService.getIssueById(id);
+        return issueService.getIssueById(id).orElseThrow(()->new IssueNotFoundException(id));
     }
 
     @PostMapping("/issue")
-    public ResponseEntity<?> saveIssue(@RequestBody Issue issue){
+     ResponseEntity<?> saveIssue(@RequestBody Issue issue){
         /*if(categoryService.findIssueCategoryByName(issue.getCategory().getCategoryName()) != null){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }*/
