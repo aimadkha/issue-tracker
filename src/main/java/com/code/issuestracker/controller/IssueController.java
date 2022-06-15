@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/api")
 @Slf4j
@@ -29,12 +30,9 @@ public class IssueController {
         /*this.categoryService = categoryService;*/
     }
 
-    @GetMapping("test")
-     String test(){
-        return "api work properly";
-    }
 
-    @GetMapping("/issues")
+
+    @GetMapping("/issue")
      ResponseEntity<?> findAllUsers(){
         return ResponseEntity.ok(issueService.getAllIssue());
     }
