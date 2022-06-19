@@ -1,6 +1,7 @@
 package com.code.issuestracker.controller;
 
 
+import com.code.issuestracker.entity.Comment;
 import com.code.issuestracker.entity.Issue;
 import com.code.issuestracker.service.IssueService;
 import com.code.issuestracker.util.IssueNotFoundException;
@@ -13,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -68,6 +71,17 @@ public class IssueController {
     @DeleteMapping("/issue/{id}")
     void deleteIssue(@PathVariable Long id){
         issueService.deleteIssue(id);
+    }
+
+
+    @PostMapping("/issue/{id}")
+    ResponseEntity<?> addCommentToIssue(@RequestBody Comment comment, @PathVariable Long id){
+        List<Comment> comments = new ArrayList<>();
+        Issue issue = issueService.getIssueById(id).get();
+        comments.add(comment);
+        issue.setComments(comments);
+        return new ResponseEntity<>(issueService.save(issue), HttpStatus.CREATED);
+
     }
 
 
