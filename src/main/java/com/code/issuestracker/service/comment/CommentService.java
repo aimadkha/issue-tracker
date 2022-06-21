@@ -1,4 +1,4 @@
-package com.code.issuestracker.service;
+package com.code.issuestracker.service.comment;
 
 import com.code.issuestracker.entity.Comment;
 import com.code.issuestracker.entity.Issue;

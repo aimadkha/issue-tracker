@@ -1,4 +1,4 @@
-package com.code.issuestracker.service;
+package com.code.issuestracker.service.issue;
 
 import com.code.issuestracker.entity.Issue;
 import com.code.issuestracker.repository.IssueRepository;

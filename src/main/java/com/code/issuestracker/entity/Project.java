@@ -30,6 +30,12 @@ public class Project {
     @Column(name="description")
     private String description;
 
+    @Column(name = "category")
+    private String category;
+
+    @Column(name="priority")
+    private String priority;
+
     @Column(name="date_created")
     @CreationTimestamp
     private Date dateCreated;

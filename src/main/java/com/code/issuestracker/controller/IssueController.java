@@ -3,12 +3,8 @@ package com.code.issuestracker.controller;
 
 import com.code.issuestracker.entity.Comment;
 import com.code.issuestracker.entity.Issue;
-import com.code.issuestracker.service.IssueService;
+import com.code.issuestracker.service.issue.IssueService;
 import com.code.issuestracker.util.IssueNotFoundException;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @CrossOrigin("http://localhost:4200")
