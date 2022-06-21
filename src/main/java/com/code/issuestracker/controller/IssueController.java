@@ -1,19 +1,17 @@
 package com.code.issuestracker.controller;
 
 
+import com.code.issuestracker.entity.Comment;
 import com.code.issuestracker.entity.Issue;
-import com.code.issuestracker.service.IssueService;
+import com.code.issuestracker.service.issue.IssueService;
 import com.code.issuestracker.util.IssueNotFoundException;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @CrossOrigin("http://localhost:4200")
@@ -68,6 +66,17 @@ public class IssueController {
     @DeleteMapping("/issue/{id}")
     void deleteIssue(@PathVariable Long id){
         issueService.deleteIssue(id);
+    }
+
+
+    @PostMapping("/issue/{id}")
+    ResponseEntity<?> addCommentToIssue(@RequestBody Comment comment, @PathVariable Long id){
+        List<Comment> comments = new ArrayList<>();
+        Issue issue = issueService.getIssueById(id).get();
+        comments.add(comment);
+        issue.setComments(comments);
+        return new ResponseEntity<>(issueService.save(issue), HttpStatus.CREATED);
+
     }
 
 

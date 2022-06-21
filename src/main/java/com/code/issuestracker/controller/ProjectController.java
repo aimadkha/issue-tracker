@@ -1,14 +1,16 @@
 package com.code.issuestracker.controller;
 
 
+import com.code.issuestracker.entity.Issue;
 import com.code.issuestracker.entity.Project;
-import com.code.issuestracker.service.ProjectService;
+import com.code.issuestracker.service.project.ProjectServiceImp;
 import com.code.issuestracker.util.IssueNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @CrossOrigin("http://localhost:4200")
@@ -17,9 +19,9 @@ import java.util.Optional;
 public class ProjectController {
 
 
-    private ProjectService projectService;
+    private ProjectServiceImp projectService;
 
-    public ProjectController(ProjectService projectService) {
+    public ProjectController(ProjectServiceImp projectService) {
         this.projectService = projectService;
     }
 
@@ -45,6 +47,21 @@ public class ProjectController {
     Project getProject(@PathVariable Long id)
     {
         return projectService.getProject(id).orElseThrow(()->new IssueNotFoundException(id));
+    }
+
+    @PostMapping("issuetoproject/{id}")
+    Issue addIssueToProject(@RequestBody Issue issue, @PathVariable Long id){
+        List<Issue> issues = new ArrayList<>();
+        issues.add(issue);
+        Project project = projectService.getProject(id).get();
+        project.setIssues(issues);
+        projectService.saveProject(project);
+        return issue;
+    }
+
+    @DeleteMapping("project/{id}")
+    void deleteProject(@PathVariable("id") Long id){
+        projectService.deleteProjectById(id);
     }
 
 

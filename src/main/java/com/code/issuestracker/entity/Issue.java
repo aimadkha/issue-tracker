@@ -10,6 +10,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "issue")
@@ -23,10 +24,6 @@ public class Issue implements Serializable {
     @Column(name="id")
     private Long id;
 
-/*    @ManyToOne
-    @JoinColumn(name="category_id", nullable = true)
-    private IssueCategory category;*/
-
     @Column(name="type")
     private String type;
 
@@ -38,6 +35,10 @@ public class Issue implements Serializable {
 
     @Column(name="priority")
     private String priority;
+
+    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ic_fk", referencedColumnName = "id")
+    private List<Comment> comments;
 
     @Column(name="date_created")
     @CreationTimestamp

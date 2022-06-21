@@ -1,7 +1,8 @@
-package com.code.issuestracker.service;
+package com.code.issuestracker.service.issue;
 
 import com.code.issuestracker.entity.Issue;
 import com.code.issuestracker.repository.IssueRepository;
+import com.code.issuestracker.util.IssueNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,7 @@ public class IssueService {
     public void deleteIssue(Long id){
         Long countById = issueRepository.countById(id);
         if (countById == null || countById == 0){
-         /*   throw new UsernameNotFoundException("could not found a user with id : "+ id);*/
-            log.error("could not found a issue with id "+ id);
+            throw new IssueNotFoundException(id);
         }
         issueRepository.deleteById(id);
     }
