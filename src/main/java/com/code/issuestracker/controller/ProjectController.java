@@ -40,6 +40,8 @@ public class ProjectController {
         Project project = projectService.getProject(id).get();
         project.setName(newProject.getName());
         project.setDescription(newProject.getDescription());
+        project.setCategory(newProject.getCategory());
+        project.setPriority(newProject.getPriority());
         return projectService.saveProject(project);
     }
 
@@ -49,7 +51,7 @@ public class ProjectController {
         return projectService.getProject(id).orElseThrow(()->new IssueNotFoundException(id));
     }
 
-    @PostMapping("issuetoproject/{id}")
+    @PostMapping("/project/{id}")
     Issue addIssueToProject(@RequestBody Issue issue, @PathVariable Long id){
         List<Issue> issues = new ArrayList<>();
         issues.add(issue);
