@@ -19,7 +19,7 @@ import java.util.List;
 public class ProjectController {
 
 
-    private ProjectServiceImp projectService;
+    private final ProjectServiceImp projectService;
 
     public ProjectController(ProjectServiceImp projectService) {
         this.projectService = projectService;
